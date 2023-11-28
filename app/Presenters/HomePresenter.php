@@ -14,8 +14,8 @@ final class HomePresenter extends Nette\Application\UI\Presenter
 	#[Inject]
 	public Nette\Database\Explorer $db;
 
-	public function actionDefault()
+	public function renderDefault(): void
 	{
-		$user = $this->db->table('user')->get(1);
+		$this->template->todos = $this->db->table('todo')->fetchAll();
 	}
 }
