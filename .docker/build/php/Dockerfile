@@ -15,4 +15,3 @@ RUN docker-php-ext-enable mysqli pdo pdo_mysql
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN composer self-update
-# pokud chcu něco spustit v dockeru,tak třeba: docker exec todo-nette php -v
