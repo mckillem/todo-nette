@@ -1,9 +1,6 @@
 {block content}
 	<h3>Přidej úkol</h3>
-	<form action="">
-		<input type="text">
-		<button>Přidat</button>
-	</form>
+	{control todoForm}
 	<ul>
 		{foreach $todos as $todo}
 			<li>{$todo->title}</li>

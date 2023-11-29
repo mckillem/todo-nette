@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Presenters;
 
 use Nette;
+use Nette\Application\UI\Form;
 use Nette\DI\Attributes\Inject;
 
 
@@ -18,4 +19,31 @@ final class HomePresenter extends Nette\Application\UI\Presenter
 	{
 		$this->template->todos = $this->db->table('todo')->fetchAll();
 	}
+
+	protected function createComponentTodoForm(): Form
+	{
+		$form = new Form;
+
+		$form->addText('title', 'Úkol:')
+			->setRequired();
+
+		$form->addSubmit('send', 'Přidat');
+		$form->onSuccess[] = $this->todoFormSucceeded(...);
+
+		return $form;
+	}
+
+	private function todoFormSucceeded(\stdClass $data): void
+	{
+		$id = $this->getParameter('id');
+
+		$this->db->table('todo')->insert([
+			'id' => $id,
+			'title' => $data->title,
+		]);
+
+		$this->flashMessage('Úkol uložen', 'success');
+		$this->redirect('this');
+	}
+
 }
