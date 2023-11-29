@@ -3,7 +3,7 @@
 	{control todoForm}
 	<ul>
 		{foreach $todos as $todo}
-			<li>{$todo->title}</li>
+			<li>{$todo->title}<a n:href="deleteTodo, id => $todo->id">Smazat</a></li>
 		{/foreach}
 	</ul>
 
