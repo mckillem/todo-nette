@@ -46,12 +46,11 @@ final class HomePresenter extends Nette\Application\UI\Presenter
 		$this->redirect('this');
 	}
 
-	public function handleDeleteTodo(int $id): void
+	public function actionDelete(int $id): void
 	{
-		$this->template->todo = $this->db->table('todo')->delete($id);
+		$this->db->table('todo')->where('id', $id)->delete();
 
-		$this->redirect("this");
-
-//		$this->onSuccess[] = $this->todoFormSucceeded(...);
+		$this->flashMessage('Úkol byl smazán', 'success');
+		$this->redirect('Home:default');
 	}
 }
