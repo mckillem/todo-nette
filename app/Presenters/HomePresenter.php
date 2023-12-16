@@ -6,18 +6,20 @@ namespace App\Presenters;
 
 use Nette;
 use Nette\Application\UI\Form;
-use Nette\DI\Attributes\Inject;
-
+use App\Models\Todo;
 
 final class HomePresenter extends Nette\Application\UI\Presenter
 {
+	private Todo $todo;
 
-	#[Inject]
-	public Nette\Database\Explorer $db;
+	public function __construct(Todo $todo)
+	{
+		$this->todo = $todo;
+	}
 
 	public function renderDefault(): void
 	{
-		$this->template->todos = $this->db->table('todo')->fetchAll();
+		$this->template->todos = $this->todo->getAllTodos();
 	}
 
 	protected function createComponentTodoForm(): Form
@@ -35,12 +37,7 @@ final class HomePresenter extends Nette\Application\UI\Presenter
 
 	private function todoFormSucceeded(\stdClass $data): void
 	{
-		$id = $this->getParameter('id');
-
-		$this->db->table('todo')->insert([
-			'id' => $id,
-			'title' => $data->title,
-		]);
+		$this->todo->saveTodo($data);
 
 		$this->flashMessage('Úkol uložen', 'success');
 		$this->redirect('this');
@@ -48,7 +45,7 @@ final class HomePresenter extends Nette\Application\UI\Presenter
 
 	public function actionDelete(int $id): void
 	{
-		$this->db->table('todo')->where('id', $id)->delete();
+		$this->todo->deleteTodo($id);
 
 		$this->flashMessage('Úkol byl smazán', 'success');
 		$this->redirect('Home:default');
