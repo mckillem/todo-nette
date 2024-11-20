@@ -6,7 +6,7 @@ services:
     volumes:
       - ../:/var/www/html
     ports:
-      - 8088:80
+      - "8088:80"
     environment:
       - NETTE_DEBUG=1
 #      - COMPOSER_AUTH=${COMPOSER_AUTH}
@@ -18,7 +18,7 @@ services:
     image: todo-nette_db
     build: build/database
     ports:
-      - 3308:3306
+      - "3308:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: test
@@ -30,7 +30,7 @@ services:
   phpmyadmin:
     image: phpmyadmin
     ports:
-      - 8089:80
+      - "8089:80"
     environment:
       - PMA_HOST=database
       - PMA_USER=test

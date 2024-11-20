@@ -1,4 +1,4 @@
-CMS Nette
+Todo Nette
 =================
 
 How to run

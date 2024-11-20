@@ -15,17 +15,20 @@ class Todo
 		$this->db = $db;
 	}
 
-	public function getAllTodos() {
+	public function getAllTodos(): array
+	{
 		return $this->db->table('todo')->fetchAll();
 	}
 
-	public function saveTodo(\stdClass $data) {
+	public function saveTodo(\stdClass $data): void
+	{
 		$this->db->table('todo')->insert([
 			'title' => $data->title,
 		]);
 	}
 
-	public function deleteTodo(int $id) {
+	public function deleteTodo(int $id): void
+	{
 		$this->db->table('todo')->where('id', $id)->delete();
 	}
 }
