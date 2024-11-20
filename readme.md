@@ -1,4 +1,4 @@
-Nette Web Project
+CMS Nette
 =================
 
 How to run
