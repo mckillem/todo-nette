@@ -1,7 +1,7 @@
 services:
   php:
     container_name: todo-nette
-    image: todo-nette
+    image: mckillem/todo-nette
     build: build/php
     volumes:
       - ../:/var/www/html
@@ -15,7 +15,7 @@ services:
 
   database:
     container_name: todo-nette_db
-    image: todo-nette_db
+    image: mckillem/todo-nette_db
     build: build/database
     ports:
       - "3308:3306"
