@@ -33,9 +33,8 @@ final class HomePresenter extends Nette\Application\UI\Presenter
 	{
 		$form = new Form;
 
-		$form->addText('id')
-			->setDefaultValue($this->id)
-			->setRequired();
+		$form->addHidden('id')
+			->setDefaultValue($this->id);
 
 		if ($this->id) {
 			$form->addText('title')
