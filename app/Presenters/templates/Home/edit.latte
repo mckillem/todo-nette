@@ -1,0 +1,8 @@
+{block content}
+	<h1 n:block="title">{if !empty($id)}Editace úkolu{else}Vložení úkolu{/if}</h1>
+
+	<a href="{link Home:default}">Zpět na seznam</a>
+	<hr>
+
+	{control todoForm}
+{/block}

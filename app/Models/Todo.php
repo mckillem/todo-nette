@@ -20,6 +20,13 @@ class Todo
 		return $this->db->table('todo')->fetchAll();
 	}
 
+	public function getTodoById(int $id): string
+	{
+		$todo = $this->db->table('todo')->get($id);
+
+		return $todo->title;
+	}
+
 	public function saveTodo(\stdClass $data): void
 	{
 		$this->db->table('todo')->insert([
@@ -30,5 +37,10 @@ class Todo
 	public function deleteTodo(int $id): void
 	{
 		$this->db->table('todo')->where('id', $id)->delete();
+	}
+
+	public function updateTodo(\stdClass $data, int $id): void
+	{
+		$this->db->table('todo')->where('id', $id)->update($data->title);
 	}
 }
