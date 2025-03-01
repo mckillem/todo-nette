@@ -33,6 +33,10 @@ final class HomePresenter extends Nette\Application\UI\Presenter
 	{
 		$form = new Form;
 
+		$form->addText('id')
+			->setDefaultValue($this->id)
+			->setRequired();
+
 		if ($this->id) {
 			$form->addText('title')
 				->setDefaultValue($this->todo->getTodoById($this->id))
@@ -44,23 +48,20 @@ final class HomePresenter extends Nette\Application\UI\Presenter
 
 		$form->addSubmit('send', 'Přidat');
 		$form->onSuccess[] = $this->todoFormSucceeded(...);
-//		$form->onSuccess[] = (string)$this->id;
 
 		return $form;
 	}
 
 	private function todoFormSucceeded(\stdClass $data): void
 	{
-		var_dump($this->id);
-//		var_dump($data);
-//		if ($data->id) {
-//			$this->todo->updateTodo($data, $data->id);
-//		} else {
-//			$this->todo->saveTodo($data);
-//		}
+		if ($data->id) {
+			$this->todo->updateTodo($data);
+		} else {
+			$this->todo->saveTodo($data);
+		}
 
-//		$this->flashMessage('Úkol byl uložen', 'success');
-//		$this->redirect('Home:default');
+		$this->flashMessage('Úkol byl uložen', 'success');
+		$this->redirect('Home:default');
 	}
 
 	public function actionDelete(int $id): void
@@ -71,11 +72,11 @@ final class HomePresenter extends Nette\Application\UI\Presenter
 		$this->redirect('Home:default');
 	}
 
-	public function actionUpdate(\stdClass $data, int $id): void
-	{
-		$this->todo->updateTodo($data, $id);
-
-		$this->flashMessage('Úkol byl upraven', 'success');
-		$this->redirect('this');
-	}
+//	public function actionUpdate(\stdClass $data, int $id): void
+//	{
+//		$this->todo->updateTodo($data, $id);
+//
+//		$this->flashMessage('Úkol byl upraven', 'success');
+//		$this->redirect('this');
+//	}
 }

@@ -39,8 +39,10 @@ class Todo
 		$this->db->table('todo')->where('id', $id)->delete();
 	}
 
-	public function updateTodo(\stdClass $data, int $id): void
+	public function updateTodo(\stdClass $data): void
 	{
-		$this->db->table('todo')->where('id', $id)->update($data->title);
+		$this->db->table('todo')->where('id', (int)$data->id)->update([
+			'title' => $data->title,
+		]);
 	}
 }

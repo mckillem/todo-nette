@@ -2,7 +2,6 @@
 	<a href="{link Home:edit}"><span class="glyphicon glyphicon-plus"></span> Přidej úkol</a>
 	<ul>
 		{foreach $todos as $todo}
-{*			<li>{$todo->title}<a n:href="delete $todo->id">Smazat</a></li>*}
 			<li>{$todo->title}<a n:href="delete $todo->id">Smazat</a><a n:href="Home:edit $todo->id">Upravit</a></li>
 		{/foreach}
 	</ul>
